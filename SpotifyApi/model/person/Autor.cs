@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace SpotifyApi.model.person
@@ -16,5 +17,6 @@ namespace SpotifyApi.model.person
         [Required] public string Death { get; set; }
         [Required] public int Age { get; set; }
         public virtual List<Playlist> Playlists { get; set; } = new List<Playlist>();
+        [JsonIgnore] public List<Music> Musics { get; set; }
     }
 }

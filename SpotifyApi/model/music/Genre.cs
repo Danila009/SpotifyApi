@@ -11,5 +11,6 @@ namespace SpotifyApi.model.music
         [Key] public int Id { get; set; }
         [Required] public string GenreTitle { get; set; }
         [Required] public string GenreIcon { get; set; }
+        public List<Music> Musics { get; set; }
     }
 }

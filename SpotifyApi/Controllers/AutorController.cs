@@ -24,7 +24,10 @@ namespace SpotifyApi.Controllers
         [HttpGet("/Person")]
         public async Task<ActionResult<List<Autor>>> GetPersons()
         {
-            return await _efModel.Autors.ToListAsync();
+            return await _efModel.Autors
+                .Include(u => u.Musics)     
+                .Include(u => u.Playlists)
+                .ToListAsync();
         }
 
         [HttpGet("/Person/{id}")]

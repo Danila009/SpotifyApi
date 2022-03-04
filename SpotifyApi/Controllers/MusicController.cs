@@ -23,21 +23,9 @@ namespace SpotifyApi.Controllers
 
         [HttpGet("/Music")]
         public async Task<ActionResult<List<Music>>> GetMusics(
-            int? idGnre, int? idPerson, string search
+            string search
             )
         {
-            if (idGnre != null)
-                return await _efModel.Musics
-                    .Include(u => u.Genre)
-                    .Include(u => u.Autors)
-                    .Where(u => u.Genre.Id == idGnre).ToListAsync();
-
-            if (idPerson != null)
-                return await _efModel.Musics
-                    .Include(u => u.Genre)
-                    .Include(u => u.Autors)
-                    .Where(u => u.Autors.Any(u => u.Id == idPerson)).ToListAsync();
-
             if (search != null)
                 return await _efModel.Musics
                     .Include(u => u.Genre)

@@ -13,7 +13,8 @@ namespace SpotifyApi.model.music
         [Required] public string Title { get; set; }
         [Required] public string Date { get; set; }
         [Required] public string Document { get; set; }
-        [Required] public virtual Genre Genre { get; set; } = new Genre();
-        [Required] public virtual List<Autor> Autors { get; set; } = new List<Autor>();
+        [Required] public string WebIcon { get; set; }
+        public virtual List<Genre> Genre { get; set; } = new List<Genre>();
+        public virtual List<Autor> Autors { get; set; } = new List<Autor>();
     }
 }
