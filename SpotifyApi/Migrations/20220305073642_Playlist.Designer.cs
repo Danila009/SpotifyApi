@@ -3,14 +3,16 @@ using System;
 using FastestDeliveryApi.database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SpotifyApi.Migrations
 {
     [DbContext(typeof(EfModel))]
-    partial class EfModelModelSnapshot : ModelSnapshot
+    [Migration("20220305073642_Playlist")]
+    partial class Playlist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +72,6 @@ namespace SpotifyApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AutorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Date")

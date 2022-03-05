@@ -27,12 +27,11 @@ namespace SpotifyApi.Controllers
             return await _efModel.Playlists.Include(u => u.Musics).ToListAsync();
         }
 
-        [HttpGet("/Playlist/{id}")]
-        public async Task<ActionResult<Playlist>> GetPlaylist(int id)
+        [HttpGet("/Playlist/{id}/Music")]
+        public async Task<ActionResult<List<Music>>> GetPlaylist(int id)
         {
-            return await _efModel.Playlists
-                .Include(u => u.Musics)
-                .FirstOrDefaultAsync(u => u.Id == id);
+            return await _efModel.Musics
+                .Where(u => u.PlaylistId == id).ToListAsync();
         }
     }
 }

@@ -3,14 +3,16 @@ using System;
 using FastestDeliveryApi.database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SpotifyApi.Migrations
 {
     [DbContext(typeof(EfModel))]
-    partial class EfModelModelSnapshot : ModelSnapshot
+    [Migration("20220305102205_PlaylistMusic")]
+    partial class PlaylistMusic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,8 +100,6 @@ namespace SpotifyApi.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PlaylistId");
 
                     b.HasIndex("UserId");
 
@@ -220,12 +220,6 @@ namespace SpotifyApi.Migrations
 
             modelBuilder.Entity("SpotifyApi.model.music.Music", b =>
                 {
-                    b.HasOne("SpotifyApi.model.music.Playlist", null)
-                        .WithMany("Musics")
-                        .HasForeignKey("PlaylistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SpotifyApi.model.user.User", null)
                         .WithMany("FavoriteMusics")
                         .HasForeignKey("UserId");
@@ -240,11 +234,6 @@ namespace SpotifyApi.Migrations
                     b.HasOne("SpotifyApi.model.user.User", null)
                         .WithMany("Playlists")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("SpotifyApi.model.music.Playlist", b =>
-                {
-                    b.Navigation("Musics");
                 });
 
             modelBuilder.Entity("SpotifyApi.model.person.Autor", b =>

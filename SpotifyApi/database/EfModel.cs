@@ -23,6 +23,7 @@ namespace FastestDeliveryApi.database
 
             modelBuilder.Entity<Autor>()
                 .HasMany(m => m.Musics).WithMany(u => u.Autors);
+
         }
 
         public EfModel(DbContextOptions options) : base(options)
