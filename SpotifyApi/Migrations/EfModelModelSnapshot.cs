@@ -47,6 +47,41 @@ namespace SpotifyApi.Migrations
                     b.ToTable("GenreMusic");
                 });
 
+            modelBuilder.Entity("MusicPlaylist", b =>
+                {
+                    b.Property<int>("MusicsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaylistsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MusicsId", "PlaylistsId");
+
+                    b.HasIndex("PlaylistsId");
+
+                    b.ToTable("MusicPlaylist");
+                });
+
+            modelBuilder.Entity("SpotifyApi.model.history.HistorySearch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("HistorySearches");
+                });
+
             modelBuilder.Entity("SpotifyApi.model.music.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -72,9 +107,6 @@ namespace SpotifyApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AutorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -82,9 +114,6 @@ namespace SpotifyApi.Migrations
                     b.Property<string>("Document")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<int>("PlaylistId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -98,8 +127,6 @@ namespace SpotifyApi.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PlaylistId");
 
                     b.HasIndex("UserId");
 
@@ -218,14 +245,30 @@ namespace SpotifyApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SpotifyApi.model.music.Music", b =>
+            modelBuilder.Entity("MusicPlaylist", b =>
                 {
-                    b.HasOne("SpotifyApi.model.music.Playlist", null)
-                        .WithMany("Musics")
-                        .HasForeignKey("PlaylistId")
+                    b.HasOne("SpotifyApi.model.music.Music", null)
+                        .WithMany()
+                        .HasForeignKey("MusicsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SpotifyApi.model.music.Playlist", null)
+                        .WithMany()
+                        .HasForeignKey("PlaylistsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SpotifyApi.model.history.HistorySearch", b =>
+                {
+                    b.HasOne("SpotifyApi.model.user.User", null)
+                        .WithMany("HistorySearch")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SpotifyApi.model.music.Music", b =>
+                {
                     b.HasOne("SpotifyApi.model.user.User", null)
                         .WithMany("FavoriteMusics")
                         .HasForeignKey("UserId");
@@ -242,11 +285,6 @@ namespace SpotifyApi.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("SpotifyApi.model.music.Playlist", b =>
-                {
-                    b.Navigation("Musics");
-                });
-
             modelBuilder.Entity("SpotifyApi.model.person.Autor", b =>
                 {
                     b.Navigation("Playlists");
@@ -255,6 +293,8 @@ namespace SpotifyApi.Migrations
             modelBuilder.Entity("SpotifyApi.model.user.User", b =>
                 {
                     b.Navigation("FavoriteMusics");
+
+                    b.Navigation("HistorySearch");
 
                     b.Navigation("Playlists");
                 });

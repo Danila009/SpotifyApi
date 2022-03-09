@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SpotifyApi.model.history;
 using SpotifyApi.model.music;
 using SpotifyApi.model.person;
 using SpotifyApi.model.user;
@@ -18,17 +19,26 @@ namespace FastestDeliveryApi.database
               modelBuilder.Entity<Music>()
                   .HasMany(m => m.Genre).WithMany(u => u.Musics);
 
+            modelBuilder.Entity<Genre>()
+                .HasMany(m => m.Musics).WithMany(u => u.Genre);
+
               modelBuilder.Entity<Music>()
                 .HasMany(m => m.Autors).WithMany(u => u.Musics);
 
             modelBuilder.Entity<Autor>()
                 .HasMany(m => m.Musics).WithMany(u => u.Autors);
 
+            modelBuilder.Entity<Playlist>()
+                .HasMany(m => m.Musics).WithMany(u => u.Playlists);
+
+            modelBuilder.Entity<Music>()
+                .HasMany(M => M.Playlists).WithMany(u => u.Musics);
+
         }
 
         public EfModel(DbContextOptions options) : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<User> Users { get; set; }
@@ -36,5 +46,6 @@ namespace FastestDeliveryApi.database
         public virtual DbSet<Autor> Autors { get; set; }
         public virtual DbSet<Playlist> Playlists { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
+        public virtual DbSet<HistorySearch> HistorySearches { get; set; }
     }
 }

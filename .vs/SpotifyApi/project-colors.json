@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "bcee058e-5ad0-4ba8-a3b7-df576e899201": {
+      "ProjectGuid": "bcee058e-5ad0-4ba8-a3b7-df576e899201",
+      "DisplayName": "SpotifyApi",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SpotifyApi.model.music;
 using SpotifyApi.model.user;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,43 @@ namespace SpotifyApi.Controllers
 
             return user;
         }
+
+        [Authorize]
+        [HttpGet("/User/Favorite/Music")]
+        public async Task<ActionResult<List<Music>>> GetMusicUserFavotite()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity == null)
+                return NotFound();
+
+            int id = Convert.ToInt32(identity.FindFirst("Id").Value);
+
+            User user = await _efModel.Users
+                .Include(u => u.FavoriteMusics)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            return user.FavoriteMusics;
+        }
+
+        [Authorize]
+        [HttpGet("/User/Playlist")]
+        public async Task<ActionResult<List<Playlist>>> GetPalylistUserFavotite()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity == null)
+                return NotFound();
+
+            int id = Convert.ToInt32(identity.FindFirst("Id").Value);
+
+            User user = await _efModel.Users
+                .Include(u => u.Playlists)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            return user.Playlists;
+        }
+
 
         [HttpPost("/Registration")]
         public async Task<ActionResult<User>> PostSchol(User user)

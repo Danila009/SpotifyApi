@@ -24,14 +24,15 @@ namespace SpotifyApi.Controllers
         [HttpGet("/Genre")]
         public async Task<ActionResult<List<Genre>>> GetGenres()
         {
-            return await _efModel.Genres                
+            return await _efModel.Genres
                 .ToListAsync();
         }
 
-        [HttpGet("/Music/Genre/{id}")]
+        [HttpGet("/Genre/{id}/Music")]
         public async Task<ActionResult<List<Music>>> GetMusic(int id)
         {
-            return await _efModel.Musics.Where(u => u.Genre.Any(u => u.Id == id)).ToListAsync();
+            return await _efModel.Musics
+                .Where(u => u.Genre.Any(u => u.Id == id)).ToListAsync();
         }
 
 

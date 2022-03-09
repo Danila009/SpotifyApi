@@ -26,7 +26,7 @@ namespace SpotifyApi.Controllers
         public async Task<ActionResult<List<Autor>>> GetPersons()
         {
             return await _efModel.Autors
-                .Include(u => u.Musics)     
+                .Include(u => u.Musics)
                 .Include(u => u.Playlists)
                 .ToListAsync();
         }
@@ -37,13 +37,14 @@ namespace SpotifyApi.Controllers
             return await _efModel.Autors
                 .Include(u => u.Musics)
                 .Include(u => u.Playlists)
-                .FirstOrDefaultAsync(u=> u.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         [HttpGet("/Autor/{id}/Music")]
         public async Task<ActionResult<List<Music>>> GetAutorMusic(int id)
         {
-            return await _efModel.Musics.Where(u => u.AutorId == id).ToListAsync();
+            return await _efModel.Musics
+                .Where(u => u.Autors.Any(u => u.Id == id)).ToListAsync();
         }
     }
 }
