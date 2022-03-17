@@ -65,6 +65,51 @@ namespace SpotifyApi.Controllers
         }
 
         [Authorize]
+        [HttpDelete("/User/Favorite/Music/{id}")]
+        public async Task<ActionResult<List<Music>>> DeleteMusicUserFavotite(int id)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity == null)
+                return NotFound();
+
+            int idUser = Convert.ToInt32(identity.FindFirst("Id").Value);
+
+            User user = await _efModel.Users
+                .Include(u => u.FavoriteMusics)
+                .FirstOrDefaultAsync(u => u.Id == idUser);
+
+            var favorite = await _efModel.Musics.FindAsync(id);
+
+            user.FavoriteMusics.Remove(favorite);
+            await _efModel.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(DeletePalylistUserFavotite
+                ), new { id = user.Id }, user.FavoriteMusics);
+        }
+
+        [Authorize]
+        [HttpGet("/User/Favorite/Music/{id}/Check")]
+        public async Task<ActionResult<Boolean>> GetCheckMusicUserFavotite(int id)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity == null)
+                return NotFound();
+
+            int idUser = Convert.ToInt32(identity.FindFirst("Id").Value);
+
+            User user = await _efModel.Users
+                .Include(u => u.FavoriteMusics)
+                .FirstOrDefaultAsync(u => u.Id == idUser);
+
+            if (user.FavoriteMusics.Any(u => u.Id == id))
+                return true;
+
+            return false;
+        }
+
+        [Authorize]
         [HttpGet("/User/Playlist")]
         public async Task<ActionResult<List<Playlist>>> GetPalylistUserFavotite()
         {
@@ -80,6 +125,51 @@ namespace SpotifyApi.Controllers
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             return user.Playlists;
+        }
+
+        [Authorize]
+        [HttpGet("/User/Playlist/{id}/Check")]
+        public async Task<ActionResult<Boolean>> GetCheckPlaylist(int id)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity == null)
+                return NotFound();
+
+            int idUser = Convert.ToInt32(identity.FindFirst("Id").Value);
+
+            User user = await _efModel.Users
+                .Include(u => u.Playlists)
+                .FirstOrDefaultAsync(u => u.Id == idUser);
+
+            if (user.Playlists.Any(u => u.Id == id))
+                return true;
+
+            return false;
+        }
+
+        [Authorize]
+        [HttpDelete("/User/Playlist/{id}")]
+        public async Task<ActionResult<List<Playlist>>> DeletePalylistUserFavotite(int id)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity == null)
+                return NotFound();
+
+            int idUser = Convert.ToInt32(identity.FindFirst("Id").Value);
+
+            User user = await _efModel.Users
+                .Include(u => u.Playlists)
+                .FirstOrDefaultAsync(u => u.Id == idUser);
+
+            var favorite = await _efModel.Playlists.FindAsync(id);
+
+            user.Playlists.Remove(favorite);
+            await _efModel.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(DeletePalylistUserFavotite
+                ), new { id = user.Id }, user.Playlists);
         }
 
 

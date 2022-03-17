@@ -1,21 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danbe\\Desktop\\Api\\SpotifyApi\\SpotifyApi\\SpotifyApi.csproj": {}
+    "C:\\Users\\student\\Source\\Repos\\SpotifyApi\\SpotifyApi\\SpotifyApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danbe\\Desktop\\Api\\SpotifyApi\\SpotifyApi\\SpotifyApi.csproj": {
+    "C:\\Users\\student\\Source\\Repos\\SpotifyApi\\SpotifyApi\\SpotifyApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danbe\\Desktop\\Api\\SpotifyApi\\SpotifyApi\\SpotifyApi.csproj",
+        "projectUniqueName": "C:\\Users\\student\\Source\\Repos\\SpotifyApi\\SpotifyApi\\SpotifyApi.csproj",
         "projectName": "SpotifyApi",
-        "projectPath": "C:\\Users\\danbe\\Desktop\\Api\\SpotifyApi\\SpotifyApi\\SpotifyApi.csproj",
-        "packagesPath": "C:\\Users\\danbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danbe\\Desktop\\Api\\SpotifyApi\\SpotifyApi\\obj\\",
+        "projectPath": "C:\\Users\\student\\Source\\Repos\\SpotifyApi\\SpotifyApi\\SpotifyApi.csproj",
+        "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\student\\Source\\Repos\\SpotifyApi\\SpotifyApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\danbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

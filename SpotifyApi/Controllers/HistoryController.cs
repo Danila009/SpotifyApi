@@ -38,6 +38,9 @@ namespace SpotifyApi.Controllers
                 .Include(u => u.HistorySearch)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
+            if (user == null)
+                return NotFound();
+
             return user.HistorySearch;
         }
 

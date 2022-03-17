@@ -14,6 +14,7 @@ namespace SpotifyApi.model.music
         [Required] public string Title { get; set; }
         [Required] public string Date { get; set; }
         [Required] public string Document { get; set; }
+        [Required] public string MusicUrl { get; set; }
         [Required] public string WebIcon { get; set; }
         [JsonIgnore] public virtual List<Playlist> Playlists { get; set; } = new List<Playlist>();
         [JsonIgnore] public virtual List<Genre> Genre { get; set; } = new List<Genre>();
