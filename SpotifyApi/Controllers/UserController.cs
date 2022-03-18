@@ -40,7 +40,7 @@ namespace SpotifyApi.Controllers
             int id = Convert.ToInt32(identity.FindFirst("Id").Value);
 
             User user = await _efModel.Users
-                .Include(u => u.FavoriteMusics)
+                .Include(u => u.FavoriteMusics)       
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
@@ -219,6 +219,7 @@ namespace SpotifyApi.Controllers
             {
                 access_token = encodedJwt,
                 username = indentity.Name,
+                role = indentity.FindFirst(ClaimsIdentity.DefaultRoleClaimType).Value
             };
 
             return response;
@@ -234,6 +235,7 @@ namespace SpotifyApi.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString()),
                     new Claim("Id", user.Id.ToString())
                 };
 

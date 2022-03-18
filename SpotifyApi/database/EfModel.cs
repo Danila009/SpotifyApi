@@ -2,6 +2,7 @@
 using SpotifyApi.model.history;
 using SpotifyApi.model.music;
 using SpotifyApi.model.person;
+using SpotifyApi.model.person.user;
 using SpotifyApi.model.user;
 using System;
 using System.Collections.Generic;
@@ -47,5 +48,6 @@ namespace FastestDeliveryApi.database
         public virtual DbSet<Playlist> Playlists { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<HistorySearch> HistorySearches { get; set; }
+        public virtual DbSet<AutorUser> AutorUsers { get; set; }
     }
 }

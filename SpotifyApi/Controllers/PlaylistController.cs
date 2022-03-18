@@ -38,7 +38,7 @@ namespace SpotifyApi.Controllers
         }
 
         [Authorize]
-        [HttpPost("/User/Playlist")]
+        [HttpPost("/User/Playlist/Favorite")]
         public async Task<ActionResult<Playlist>> PostPlaylistFavorite(int idPalylist)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -62,6 +62,44 @@ namespace SpotifyApi.Controllers
 
             return CreatedAtAction(nameof(PostPlaylistFavorite
                 ), new { id = user.Id }, user.Playlists);
+        }
+
+        [Authorize]
+        [HttpPost("/User/Playlist")]
+        public async Task<ActionResult<Playlist>> PostPlaylistUser(Playlist playlist)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity == null)
+                return NotFound();
+
+            int id = Convert.ToInt32(identity.FindFirst("Id").Value);
+
+            User user = await _efModel.Users
+                .Include(u => u.Playlists)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+                return NotFound();
+
+            user.Playlists.Add(playlist);
+            await _efModel.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(PostPlaylistUser
+                ), new { id = user.Id }, user.Playlists);
+        }
+
+        [Authorize]
+        [HttpPost("/User/Playlist/{id}/Music")]
+        public async Task<ActionResult<Playlist>> PostPlaylistMusicUser(Music music, int id)
+        {
+            Playlist playlist =  _efModel.Playlists.Find(id);
+
+            playlist.Musics.Add(music);
+            await _efModel.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetPlaylist
+                ), new { id = playlist.Id }, playlist);
         }
     }
 }
